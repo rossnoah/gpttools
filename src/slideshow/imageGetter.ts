@@ -50,7 +50,7 @@ export const getImage = async (imageQuery: string) => {
       return { url: pixabayUrl, attribution: pixabayAttribution };
     } catch (pixabayError) {
       console.error("Pixabay request failed:", pixabayError);
-      return { error: "Both Unsplash and Pixabay requests failed" }; // Handle errors or return a default message
+      return null; // Handle errors or return a default message
     }
   }
 };
