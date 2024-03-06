@@ -1,4 +1,5 @@
 import axios from "axios";
+import { url } from "inspector";
 
 export const getImage = async (imageQuery: string) => {
   const unsplashAccessKey = process.env.UNSPLASH_ACCESS_KEY; // Access your Unsplash Access Key from environment variables
@@ -50,7 +51,7 @@ export const getImage = async (imageQuery: string) => {
       return { url: pixabayUrl, attribution: pixabayAttribution };
     } catch (pixabayError) {
       console.error("Pixabay request failed:", pixabayError);
-      return null; // Handle errors or return a default message
+      return { url: "", attribution: "" }; // Handle errors or return a default message
     }
   }
 };
