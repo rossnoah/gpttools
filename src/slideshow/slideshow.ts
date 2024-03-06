@@ -134,7 +134,10 @@ slideshow.post("/:theme", async (c) => {
   for (let slide of slides) {
     if (typeof slide.image === "object" && slide.image.url) {
       const { url, attribution } = await getImage(slide.image.url);
-      if (!attribution) {
+
+      if (!attribution || !url) {
+        slide.image.url = "";
+        slide.image.caption = "";
         continue;
       }
       slide.image.url = url;
