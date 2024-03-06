@@ -208,7 +208,7 @@ export async function generatePowerPointFromSlideshow(
   // Process each content slide in the slideshow and apply the theme
   slideshow.slides.forEach((slideContent, index) => {
     let pptxSlide = pptx.addSlide();
-    applyThemeToSlide(pptxSlide, slideContent, theme, index === 0);
+    applyThemeToSlide(pptxSlide, slideContent, theme);
   });
 
   return pptx.stream();
