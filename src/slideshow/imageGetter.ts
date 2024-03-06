@@ -15,6 +15,12 @@ export const getImage = async (imageQuery: string) => {
       }
     );
 
+    if (unsplashResponse.status !== 200) {
+      throw new Error(
+        `Unsplash request failed with status code ${unsplashResponse.status}`
+      );
+    }
+
     const unsplashUrl = unsplashResponse.data.results[0].urls.regular;
     const photographer = unsplashResponse.data.results[0].user.name;
     const unsplashAttribution = `Photo by ${photographer} on Unsplash`;
@@ -31,6 +37,12 @@ export const getImage = async (imageQuery: string) => {
           image_type: "photo",
         },
       });
+
+      if (pixabayResponse.status !== 200) {
+        throw new Error(
+          `Pixabay request failed with status code ${pixabayResponse.status}`
+        );
+      }
 
       const pixabayUrl = pixabayResponse.data.hits[0].webformatURL;
       const pixabayAttribution = "Image from Pixabay"; // Pixabay images are royalty-free and don't require attribution, but it's good practice to give credit
