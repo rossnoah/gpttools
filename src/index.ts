@@ -12,12 +12,12 @@ app.get("/", async (c) => {
 
 app.route("/slideshow", slideshow);
 
-console.log("Starting server...");
-console.log("Listening on port 3000...");
-console.log("Press Ctrl+C to stop the server.");
-console.log("http://localhost:3000");
-
 const port = (process.env.PORT as unknown as number) || 3000;
+
+console.log("Starting server...");
+console.log("Listening on port " + port);
+console.log("Press Ctrl+C to stop the server.");
+console.log("http://localhost:" + port);
 
 serve({
   fetch: app.fetch,
