@@ -132,9 +132,13 @@ slideshow.post("/:theme", async (c) => {
 
   //map the image url to the actual image url by looping over the slides and calling the getImage function
   for (let slide of slides) {
-    if (slide.image?.url) {
-      const url = await getImage(slide.image.url);
+    if (typeof slide.image === "object" && slide.image.url) {
+      const { url, attribution } = await getImage(slide.image.url);
+      if (!attribution) {
+        continue;
+      }
       slide.image.url = url;
+      slide.image.caption = attribution;
     }
   }
 
