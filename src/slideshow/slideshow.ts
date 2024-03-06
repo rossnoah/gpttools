@@ -8,7 +8,7 @@ import { getImage } from "./imageGetter";
 const slideshow = new Hono();
 
 const ImageSchema = z.object({
-  url: z.string().url(),
+  url: z.string(),
   caption: z.string().optional(),
 });
 const SlideSchema = z.object({
