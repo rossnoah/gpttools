@@ -28,7 +28,8 @@ export const getImage = async (imageQuery: string) => {
 
     return { url: unsplashUrl, attribution: unsplashAttribution };
   } catch (unsplashError) {
-    console.error("Unsplash request failed:", unsplashError);
+    // console.error("Unsplash request failed:", unsplashError);
+    console.error("Unsplash request failed:");
 
     try {
       const pixabayResponse = await axios.get(`https://pixabay.com/api/`, {
@@ -50,7 +51,9 @@ export const getImage = async (imageQuery: string) => {
 
       return { url: pixabayUrl, attribution: pixabayAttribution };
     } catch (pixabayError) {
-      console.error("Pixabay request failed:", pixabayError);
+      //   console.error("Pixabay request failed:", pixabayError);
+      console.error("Pixabay request failed:");
+
       return { url: "", attribution: "" }; // Handle errors or return a default message
     }
   }
