@@ -3,6 +3,7 @@ import { prisma } from "..";
 
 import { generatePowerPointFromSlideshow as generatePowerPoint } from "./generation";
 import { z } from "zod";
+import { getImage } from "./imageGetter";
 
 const slideshow = new Hono();
 
@@ -121,13 +122,21 @@ slideshow.get("/:uuid/:theme", async (c) => {
 
 slideshow.post("/:theme", async (c) => {
   let { theme } = c.req.param();
-  const body = await c.req.json();
+  let body = await c.req.json();
   const result = SlideshowSchema.safeParse(body);
   if (!result.success) {
     return c.json({ error: "Invalid request body" }, 400);
   }
 
   const { titleSlide, slides } = result.data;
+
+  //map the image url to the actual image url by looping over the slides and calling the getImage function
+  for (let slide of slides) {
+    if (slide.image?.url) {
+      const url = await getImage(slide.image.url);
+      slide.image.url = url;
+    }
+  }
 
   // Transform slides and images into a format suitable for Prisma
   const transformedSlides = slides.map((slide) => ({
